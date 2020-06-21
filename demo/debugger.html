@@ -313,13 +313,11 @@ window.addEventListener("load", function initViews() {
         if (errorType === GLSL.Error.Type.VertexShaderTranslation || GLSL.Error.Type.VertexShaderExecution) {
             resultsBottom.activeShaderType = GLSL.Shader.Type.Vertex;
             resultsBottom.activeOutputType = "codegen";
-            debugger;
         }
 
         if (errorType === GLSL.Error.Type.FragmentShaderTranslation || GLSL.Error.Type.FragmentShaderExecution) {
             resultsBottom.activeShaderType = GLSL.Shader.Type.Fragment;
             resultsBottom.activeOutputType = "codegen";
-            debugger;
         }
 
         resultsTop.showErrorMessage(errorType, event.data.message);
