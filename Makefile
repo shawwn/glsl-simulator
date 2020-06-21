@@ -50,8 +50,10 @@ VERSION_FILE = VERSION
 # ===== Executables =====
 # Use '$ npm install pegjs uglify-js' from repository root to install dependencies locally.
 
-UGLIFYJS      = $(NODE_MODULES_BIN_DIR)/uglifyjs
-PEGJS         = $(NODE_MODULES_BIN_DIR)/pegjs
+#UGLIFYJS      = $(NODE_MODULES_BIN_DIR)/uglifyjs
+#PEGJS         = $(NODE_MODULES_BIN_DIR)/pegjs
+UGLIFYJS      = uglifyjs
+PEGJS         = pegjs
 
 # ===== Targets =====
 
@@ -60,7 +62,7 @@ all: parser browser
 
 # Generate the grammar parser
 parser:
-	$(PEGJS) $(PARSER_SRC_FILE) $(PARSER_OUT_FILE)
+	$(PEGJS) -o $(PARSER_OUT_FILE) $(PARSER_SRC_FILE)
 
 # Build the browser version of the library
 browser:
