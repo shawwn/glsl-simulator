@@ -60,7 +60,7 @@ test._compare = function(x, y) {
 
 
 var v2 = r.Vec2(1, 2);
-v2.minus(r.Vec2(5, 2));
+v2.subtract(r.Vec2(5, 2));
 console.log(v2);
 
 var v3 = r.Vec3(1, 2, 3);
@@ -181,7 +181,7 @@ mat3.set(1, r.Vec3(4, 8, 12));
 console.log(mat3, mat3.equal(mat1));
 
 console.log("mat.add", r.mat(mat1).add(mat3));
-console.log("mat.minus", r.mat(mat1).minus(mat3));
+console.log("mat.subtract", r.mat(mat1).subtract(mat3));
 console.log("mat.divide", r.mat(mat1).divide(mat3));
 console.log("mat.matrixCompMult", r.mat(mat1).matrixCompMult(mat3));
 console.log("mat.multiply", r.mat(mat1).multiply(mat3));
