@@ -60,7 +60,7 @@ RenderView.prototype = {
         var resolution = this.env.get("iResolution") || this.env.get("resolution") || GLSL.Runtime.Vec3(200, 200, 1);
         var w = resolution.get('x');
         var h = resolution.get('y');
-        if (!this._context || !(this.renderWidth == w && this.renderHeight == h)) {
+        if (!this._context || !(this.renderWidth === w && this.renderHeight === h)) {
             this.renderWidth = this._canvasElement.width = w;
             this.renderHeight = this._canvasElement.height = h;
             var ctx = this._context = this._canvasElement.getContext("2d");
@@ -71,6 +71,12 @@ RenderView.prototype = {
             ctx.strokeStyle = "black";
             ctx.fillRect(0, 0, w, h);
             ctx.strokeRect(0, 0, w, h);
+        }
+
+        var rgba = env.get("gl_FragColor");
+        if (rgba) {
+            rgba = [255*rgba.d[0], 255*rgba.d[1], 255*rgba.d[2], 255*rgba.d[3]];
+            this._pixelColorElement.style.backgroundColor = "rgba(" + rgba.join(", ") + ")";
         }
 
         this._updateButton.disabled = false;
@@ -85,7 +91,7 @@ RenderView.prototype = {
 
         this.program.renderToBuffer(this.env, this._buffer);
         this._context.putImageData(this._buffer, 0, 0);
-        this._updateButton.disabled = true;
+        //this._updateButton.disabled = true;
     },
 
     _updateButtonClicked: function()
@@ -99,12 +105,14 @@ RenderView.prototype = {
         var y = event.clientY - event.target.offsetTop;
         this._selectedCoord = [x, y];
 
+        /*
         var rgba = [this._buffer.data[(y * this.renderWidth + x) * 4 + 0] | 0,
                     this._buffer.data[(y * this.renderWidth + x) * 4 + 1] | 0,
                     this._buffer.data[(y * this.renderWidth + x) * 4 + 2] | 0,
                     (this._buffer.data[(y * this.renderWidth + x) * 4 + 3] / 255) | 0];
 
         this._pixelColorElement.style.backgroundColor = "rgba(" + rgba.join(", ") + ")";
+        */
         this._pixelCoordElement.textContent = "gl_FragCoord = (" + [x, y, 1, 1].join(", ") + ")";
     },
 

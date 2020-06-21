@@ -55,6 +55,11 @@ var DebugView = function(program, env, which) {
         this.outputSelectorElement.add(option, null);
 
         option = document.createElement("option");
+        option.text = "Generated Python";
+        option.value = "codegen_py";
+        this.outputSelectorElement.add(option, null);
+
+        option = document.createElement("option");
             option.text = "Primary Output";
             option.value = "output";
         this.outputSelectorElement.add(option, null);
@@ -145,14 +150,23 @@ DebugView.prototype = {
         this.element.appendChild(this.outputElement);
         this.element.classList.remove("error-message");
 
+        var gen = (target) => {
+          shader.target = target;
+          var source = shader.executable.source || shader.executable.code.toString();
+          this.outputElement.appendChild(document.createTextNode(source));
+        };
+
         switch (this.activeOutputType) {
         case "ast":
             this.outputElement.appendChild(document.createTextNode(jsDump.parse(shader.ast)));
         break;
 
+        case "codegen_py":
+            gen("py");
+        break;
+
         case "codegen":
-            var source = shader.executable.source || shader.executable.code.toString();
-            this.outputElement.appendChild(document.createTextNode(source));
+            gen("js");
         break;
 
         case "output":
